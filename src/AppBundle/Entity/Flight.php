@@ -13,39 +13,41 @@ use Doctrine\ORM\Mapping as ORM;
 class Flight
 {
 
+    /*
+ * Adding personal methods / variables
+ */
+    public function __toString()
+    {
+        // Return the Site object with "[DEPARTURE] [ARRIVAL]" format, when __toString is called.
+        return $this->departure . " " . $this->arrival;
+    }
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="departures")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=false)
      */
     private $departure;
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="arrivals")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=false)
      */
     private $arrival;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PlaneModel", inversedBy="planes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PlaneModel")
      * @ORM\JoinColumn(nullable=false)
      */
     private $plane;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="pilots")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pilot;
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="flight")
      * @ORM\JoinColumn(nullable=false)
      */
     private $flights;
-    /*
-     * Adding personal methods /variables
-     */
-    public function __toString()
-    {
-        return $this->departure . " " . $this->arrival;
-    }
+
 
     /**
      * @var int
