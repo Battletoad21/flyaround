@@ -1,37 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h1>Review list</h1>
-
+    <h1>Reviews list</h1>
 
     <table>
         <thead>
         <tr>
             <th>Id</th>
             <th>Text</th>
-            <th>reviewAuthor</th>
-            <th>userRated</th>
-            <th>publicationdate</th>
-            <th>note</th>
+            <th>Publicationdate</th>
+            <th>Note</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for review in reviews %}
             <tr>
-                <td><a href="{{ path('show_review', { 'id': review.id }) }}">{{ review.id }}</a></td>
+                <td><a href="{{ path('review_show', { 'id': review.id }) }}">{{ review.id }}</a></td>
                 <td>{{ review.text }}</td>
-                <td>{{ review.reviewAuthor }}</td>
-                <td>{{ review.userRated }}</td>
-                <td>{{ review.publicationDate|date('Y-m-d') }}</td>
+                <td>{% if review.publicationDate %}{{ review.publicationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ review.note }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('show_review', { 'id': review.id }) }}">show</a>
+                            <a href="{{ path('review_show', { 'id': review.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('edit_review', { 'id': review.id }) }}">edit</a>
+                            <a href="{{ path('review_edit', { 'id': review.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -40,7 +35,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('review_new') }}">Create review</a>
-
-
+    <ul>
+        <li>
+            <a href="{{ path('review_new') }}">Create a new review</a>
+        </li>
+    </ul>
 {% endblock %}
